@@ -37,13 +37,13 @@ class Home extends React.Component {
           onChange={(e) => this.setState({ name: e.target.value })}
         />
         <label htmlFor="emal">Digite seu email:</label>
-        <input 
+        <input
           id="emal" type="email" data-testid="input-player-name"
           onChange={(e) => this.setState({ email: e.target.value })}
         />
         <Link to="/game">
           <button 
-            type="button" disabled={(name && email)? false : true} 
+            type="button" disabled={(!name || !email)}
             onClick={this.submitInfo} data-testid="btn-play"
           >
             Jogar
@@ -60,11 +60,11 @@ class Home extends React.Component {
 Home.propTypes = {
   setEmailInfo: PropTypes.func.isRequired,
   setNameInfo: PropTypes.func.isRequired,
-}
+};
 
 const mapDispatchToProps = (dispatch) => ({
   setEmailInfo: (email, hash) => dispatch(setEmail(email, hash)),
   setNameInfo: (name) => dispatch(setName(name)),
-})
+});
 
 export default connect(null, mapDispatchToProps)(Home);

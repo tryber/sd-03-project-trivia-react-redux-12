@@ -12,4 +12,4 @@ export const setEmail = (email, hash) => ({
 export const setName = (name) => ({
   type: SET_NAME,
   payload: name,
-})
+});
