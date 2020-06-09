@@ -1,7 +1,7 @@
 import {
   requestQuestions,
   receiveQuestions,
- } from '../redux/actions';
+ } from '../redux/actions/index';
 
 export const URL_TOKEN = 'https://opentdb.com/api_token.php?command=request';
 
@@ -22,9 +22,10 @@ export const fetchToken = () => fetch(URL_TOKEN)
 
 export function triviaAPI(token) {
   return (dispatch) => {
+    console.log(token);
     dispatch(requestQuestions());
     return fetch(`https://opentdb.com/api.php?amount=5&token=${token}`)
       .then((response) => response.json())
-      .then((data) => dispatch(receiveQuestions(data)));
+      .then((data) => dispatch(receiveQuestions(data.results)));
   };
 }

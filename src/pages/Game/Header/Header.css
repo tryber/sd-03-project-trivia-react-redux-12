@@ -1,0 +1,11 @@
+.Game-Header {
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.Personal-Info {
+  border: 1px solid grey;
+  display: flex;
+}

@@ -1,13 +1,42 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { triviaAPI, fetchToken, URL_TOKEN } from '../../services/triviaAPI';
+import Header from './Header/Header';
+import Questions from './Questions/Questions';
 
 class Game extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { token: '' };
+  }
+  componentDidMount() {
+    fetchToken(URL_TOKEN)
+      .then(response => this.setState({ token: response.token }));
+  }
+
+  componentDidUpdate(_prevProps, prevState) {
+    const { token } = this.state;
+    const { triviaAPIs } = this.props;
+    if(prevState.token !== token) {
+      localStorage.setItem('token', token);
+      triviaAPIs(token);
+    }
+  }
   render() {
     return (
       <div>
-        Game
+        <Header />
+        <Questions />
       </div>
     );
   }
 }
+const mapStateToProps = (state) => ({
+  questions: state.questions.questions,
+});
 
-export default Game;
+const mapDispatchToProps = (dispatch)  => ({
+  triviaAPIs: (token) => dispatch(triviaAPI(token))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);
