@@ -1,13 +1,13 @@
 import React from 'react';
 
-class Feedback extends React.Component {
+class Ranking extends React.Component {
   render() {
     return (
       <div>
-        Feedback
+        Ranking
       </div>
     );
   }
 }
 
-export default Feedback;
+export default Ranking;
