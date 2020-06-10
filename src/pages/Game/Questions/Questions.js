@@ -49,11 +49,14 @@ class Questions extends React.Component {
     const { options, correctAnswer } = this.state;
     return (
       <div>
-        {options.map((option) => (
-          (option === correctAnswer) ?
-            <button data-testid="correct-answer" key={option}>{option}</button> :
-            <button data-testid={`wrong-answer-${index += 1}`} key={option}>{option}</button>
-        ))}
+        {options.map((option) => {
+          if (options === correctAnswer) {
+            return (
+              <button data-testid="correct-answer" key={option}>{option}</button>
+            );
+          }
+          <button data-testid={`wrong-answer-${index += 1}`} key={option}>{option}</button>
+        })}
       </div>
     );
   }
