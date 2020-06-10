@@ -50,12 +50,15 @@ class Questions extends React.Component {
     return (
       <div>
         {options.map((option) => {
-          if (options === correctAnswer) {
+          if (option === correctAnswer) {
             return (
               <button data-testid="correct-answer" key={option}>{option}</button>
             );
           }
-          <button data-testid={`wrong-answer-${index += 1}`} key={option}>{option}</button>
+          index += 1;
+          return (
+            <button data-testid={`wrong-answer-${index}`} key={option}>{option}</button>
+          );
         })}
       </div>
     );
