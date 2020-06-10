@@ -14,9 +14,8 @@ class Questions extends React.Component {
       correctAnswer: '',
       incorrectAnswers: [],
       options: [],
-      index: 0,
+      index: 1,
     };
-    this.nextQuestion = this.nextQuestion.bind(this);
   }
 
   nextQuestion(index) {
@@ -32,6 +31,13 @@ class Questions extends React.Component {
       options,
       index: index + 1,
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log(prevProps)
+    if (prevProps.questions !== this.props.questions) {
+      this.nextQuestion(0);
+    }
   }
 
   renderButton() {
@@ -80,9 +86,7 @@ class Questions extends React.Component {
           </div>
         </section>
         <section>
-          <div>
-            {this.renderOptions()}
-          </div>
+          {this.renderOptions()}
           {this.renderButton()}
         </section>
       </section>
@@ -93,17 +97,6 @@ class Questions extends React.Component {
 const mapStateToProps = (state) => ({
   questions: state.questions.questions,
 });
-
-Questions.defaultProps = {
-  questions: [{
-    category: '',
-    correct_answer: '',
-    difficulty: '',
-    incorrect_answers: [''],
-    question: '',
-    type: '',
-  }],
-};
 
 Questions.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.shape({
