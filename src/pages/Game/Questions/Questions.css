@@ -1,0 +1,14 @@
+.Questions-Container {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.correct-border {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.incorrect-border {
+  border: 3px solid red;
+}
