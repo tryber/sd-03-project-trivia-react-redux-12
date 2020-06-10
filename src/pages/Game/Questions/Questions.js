@@ -5,6 +5,15 @@ import PropTypes from 'prop-types';
 import './Questions.css';
 
 class Questions extends React.Component {
+  static async getShuffledArr(array) {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i -= 1) {
+      const rand = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[rand]] = [newArray[rand], newArray[i]];
+    }
+    return newArray;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -24,15 +33,6 @@ class Questions extends React.Component {
     if (prevProps.questions !== this.props.questions) {
       this.nextQuestion(0);
     }
-  }
-
-  static async getShuffledArr(array) {
-    const newArray = [...array];
-    for (let i = newArray.length - 1; i > 0; i -= 1) {
-      const rand = Math.floor(Math.random() * (i + 1));
-      [newArray[i], newArray[rand]] = [newArray[rand], newArray[i]];
-    }
-    return newArray;
   }
 
   nextQuestion(index) {
