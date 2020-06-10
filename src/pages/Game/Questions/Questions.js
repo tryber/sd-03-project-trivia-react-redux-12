@@ -26,38 +26,29 @@ class Questions extends React.Component {
     }
   }
 
-  async getShuffledArr (array){
-    for (var i = array.length - 1; i > 0; i--) {
-        var rand = Math.floor(Math.random() * (i + 1));
-        [array[i], array[rand]] = [array[rand], array[i]]
+  async getShuffledArr(array) {
+    for (let i = array.length - 1; i > 0; i -= 1) {
+      let rand = Math.floor(Math.random() * (i + 1));
+      [array[i], array[rand]] = [array[rand], array[i]]
     }
-    return array;
+    return this;
   }
 
   nextQuestion(index) {
-    this.setState({  answered: false, disabledOption: false })
+    this.setState({ answered: false, disabledOption: false });
     const { questions } = this.props;
     const options = [questions[index].correct_answer, ...questions[index].incorrect_answers];
-    this.getShuffledArr(options).then(
-      this.setState({
-        category: questions[index].category,
-        question: questions[index],
-        time: '30',
-        correctAnswer: questions[index].correct_answer,
-        incorrectAnswers: questions[index].incorrect_answers,
-        options,
-        index: index + 1,
-      })
-    );
-  }
-
-  renderButtons() {
-    const { index, answered } = this.state;
-    if (answered) {
-      return index < 5 ?
-      <button data-testid="btn-next" onClick={() => this.nextQuestion(index)}>Próxima</button> :
-      <Link to="/feedback"><button data-testid="btn-next">Próxima</button></Link>
-    }
+    this.getShuffledArr(options)
+      .then(
+        this.setState({
+          category: questions[index].category,
+          question: questions[index],
+          time: '30',
+          correctAnswer: questions[index].correct_answer,
+          incorrectAnswers: questions[index].incorrect_answers,
+          options,
+          index: index + 1,
+      }));
   }
 
   optionsButtons(dataTestId, option) {
@@ -74,6 +65,16 @@ class Questions extends React.Component {
     );
   }
 
+  renderButtons() {
+    const { index, answered } = this.state;
+    if (answered) {
+      return index < 5 ?
+        <button data-testid="btn-next" onClick={() => this.nextQuestion(index)}>Próxima</button> :
+        <Link to="/feedback"><button data-testid="btn-next">Próxima</button></Link>;
+    }
+    return null;
+  }
+
   renderOptions() {
     let index = -1;
     const { options, correctAnswer } = this.state;
@@ -82,7 +83,7 @@ class Questions extends React.Component {
         {options.map((option) => {
           if (option === correctAnswer) {
             return (
-              this.optionsButtons("correct-answer", option)
+              this.optionsButtons('correct-answer', option)
             );
           }
           index += 1;
