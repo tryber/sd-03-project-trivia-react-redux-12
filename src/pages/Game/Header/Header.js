@@ -10,11 +10,15 @@ class Header extends React.Component {
   }
 
   render() {
-    const { hash, name  } = this.props;
+    const { hash, name } = this.props;
     return (
       <header className="Game-Header">
         <div className="Personal-Info">
-          <img data-testid="header-profile-picture" src={`https://www.gravatar.com/avatar/${hash}`} />
+          <img
+            data-testid="header-profile-picture"
+            src={`https://www.gravatar.com/avatar/${hash}`}
+            alt="Imagem do jogador"
+          />
           <p data-testid="header-player-name">Nome da pessoa: {`${name}`}</p>
         </div>
         <div>

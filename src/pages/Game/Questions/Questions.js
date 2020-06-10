@@ -15,8 +15,8 @@ class Questions extends React.Component {
       incorrect_answers: [],
       options: [],
       index: 0,
-    }
-    this.nextQuestion = this.nextQuestion.bind(this)
+    };
+    this.nextQuestion = this.nextQuestion.bind(this);
   }
 
   nextQuestion(index) {
@@ -37,22 +37,29 @@ class Questions extends React.Component {
   renderButton() {
     const { index } = this.state;
     return index !== 5 ?
-    <button onClick={() => this.nextQuestion(index)}>PRÓXIMA</button> :
-    <div>
+     <button onClick={() => this.nextQuestion(index)}>PRÓXIMA</button> :
+     <div>
       <button><Link to="/">Jogar novamente</Link></button>
       <button><Link to="/feedback">Finalizar</Link></button>
     </div>;
   }
 
-  componentWillUpdate(prevProps) {
-    if(prevProps.questions !== this.props.questions) {
-      console.log('Props Atualizada:', this.props.questions);
-    }
+  renderOptions() {
+    let index = -1;
+    const { options, correct_answer } = this.state;
+    return (
+      <div>
+        {options.map((option) => (
+          (option === correct_answer) ?
+            <button data-testid="correct-answer" key={option}>{option}</button> :
+            <button data-testid={`wrong-answer-${index += 1}`} key={option}>{option}</button>
+        ))}
+      </div>
+    );
   }
 
   render() {
-    let index = -1;
-    const { options, category, question: { question }, time, correct_answer } = this.state;
+    const { category, question: { question }, time } = this.state;
     return (
       <section className="Questions-Container">
         <section>
@@ -68,24 +75,21 @@ class Questions extends React.Component {
         </section>
         <section>
           <div>
-            {options.map((option) => (option === correct_answer) ?
-            <button data-testid="correct-answer" key={option}>{option}</button> :
-            <button data-testid={`wrong-answer-${index += 1}`} key={option}>{option}</button>
-            )}
+            {this.renderOptions()}
           </div>
           {this.renderButton()}
         </section>
       </section>
     );
-  }
+  };
 }
 
 const mapStateToProps = (state) => ({
   questions: state.questions.questions,
-})
+});
 
 Questions.propTypes = {
-  question: PropTypes.arrayOf(PropTypes.shape({
+  questions: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string.isRequired,
     correct_answer: PropTypes.string.isRequired,
     difficulty: PropTypes.string.isRequired,
@@ -93,6 +97,6 @@ Questions.propTypes = {
     question: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   })),
-}
+};
 
 export default connect(mapStateToProps)(Questions);
