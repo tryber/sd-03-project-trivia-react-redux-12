@@ -26,12 +26,13 @@ class Questions extends React.Component {
     }
   }
 
-  async getShuffledArr(array) {
-    for (let i = array.length - 1; i > 0; i -= 1) {
-      let rand = Math.floor(Math.random() * (i + 1));
-      [array[i], array[rand]] = [array[rand], array[i]]
+  async getShuffledArr (array){
+    let newArray = [...array]
+    for (let i = newArray.length - 1; i > 0; i -= 1) {
+        let rand = Math.floor(Math.random() * (i + 1));
+        [newArray[i],newArray[rand]] = [newArray[rand], newArray[i]]
     }
-    return this;
+    return newArray;
   }
 
   nextQuestion(index) {
@@ -39,16 +40,17 @@ class Questions extends React.Component {
     const { questions } = this.props;
     const options = [questions[index].correct_answer, ...questions[index].incorrect_answers];
     this.getShuffledArr(options)
-      .then(
-        this.setState({
-          category: questions[index].category,
-          question: questions[index],
-          time: '30',
-          correctAnswer: questions[index].correct_answer,
-          incorrectAnswers: questions[index].incorrect_answers,
-          options,
-          index: index + 1,
-      }));
+    .then((newArray) => (
+      this.setState({
+        category: questions[index].category,
+        question: questions[index],
+        time: '30',
+        correctAnswer: questions[index].correct_answer,
+        incorrectAnswers: questions[index].incorrect_answers,
+        options: newArray,
+        index: index + 1,
+      })),
+    );
   }
 
   optionsButtons(dataTestId, option) {
