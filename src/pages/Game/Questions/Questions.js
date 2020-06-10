@@ -89,7 +89,7 @@ const mapStateToProps = (state) => ({
 });
 
 Questions.defaultProps = {
-  question: [{
+  questions: [{
     category: '',
     correct_answer: '',
     difficulty: '',
@@ -97,7 +97,7 @@ Questions.defaultProps = {
     question: '',
     type: '',
   }],
-}
+};
 
 Questions.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.shape({
@@ -107,7 +107,7 @@ Questions.propTypes = {
     incorrect_answers: PropTypes.arrayOf(PropTypes.string.isRequired),
     question: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-  })),
+  })).isRequired,
 };
 
 export default connect(mapStateToProps)(Questions);

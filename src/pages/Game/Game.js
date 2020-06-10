@@ -9,16 +9,11 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = { token: '' };
-    this.attLocalState =   this.attLocalState.bind(this);
+    this.attLocalState = this.attLocalState.bind(this);
   }
 
   componentDidMount() {
     this.attLocalState();
-  }
-
-  attLocalState() {
-    const token = localStorage.getItem('token');
-    this.setState({ token });
   }
 
   componentDidUpdate(_prevProps, prevState) {
@@ -29,6 +24,12 @@ class Game extends React.Component {
       triviaAPIs(token);
     }
   }
+
+  attLocalState() {
+    const token = localStorage.getItem('token');
+    this.setState({ token });
+  }
+
   render() {
     return (
       <div>
