@@ -18,9 +18,14 @@ class Questions extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.questions !== this.props.questions) {
+      this.nextQuestion(0);
+    }
+  }
+
   nextQuestion(index) {
     const { questions } = this.props;
-    console.log(questions);
     const options = [questions[index].correct_answer, ...questions[index].incorrect_answers];
     this.setState({
       category: questions[index].category,
@@ -31,13 +36,6 @@ class Questions extends React.Component {
       options,
       index: index + 1,
     });
-  }
-
-  componentDidUpdate(prevProps) {
-    console.log(prevProps)
-    if (prevProps.questions !== this.props.questions) {
-      this.nextQuestion(0);
-    }
   }
 
   renderButton() {

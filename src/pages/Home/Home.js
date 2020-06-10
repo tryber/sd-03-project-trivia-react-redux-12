@@ -27,7 +27,7 @@ class Home extends React.Component {
       .then((tokenJSON) => {
         localStorage.setItem('token', tokenJSON.token);
         this.setState({ token: tokenJSON.token });
-      })
+      });
     setNameInfo(name);
     const hash = CryptoJS.MD5(email.trim().toLowerCase());
     setEmailInfo(email, hash.toString(CryptoJS.enc.Hex));
@@ -48,12 +48,12 @@ class Home extends React.Component {
           id="emal" type="email" data-testid="input-player-name"
           onChange={(e) => this.setState({ email: e.target.value })}
         />
-          <button
+        <button
             type="button" disabled={(!name || !email)}
             onClick={this.submitInfo} data-testid="btn-play"
-          >
-            Jogar
-          </button>
+        >
+          Jogar
+        </button>
         <Link to="/setting">
           <button data-testid="btn-settings" type="button">Configurações</button>
         </Link>
