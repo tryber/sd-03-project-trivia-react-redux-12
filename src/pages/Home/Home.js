@@ -49,8 +49,8 @@ class Home extends React.Component {
           onChange={(e) => this.setState({ email: e.target.value })}
         />
         <button
-            type="button" disabled={(!name || !email)}
-            onClick={this.submitInfo} data-testid="btn-play"
+          type="button" disabled={(!name || !email)}
+          onClick={this.submitInfo} data-testid="btn-play"
         >
           Jogar
         </button>
