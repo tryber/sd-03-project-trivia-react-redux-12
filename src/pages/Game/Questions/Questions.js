@@ -26,11 +26,11 @@ class Questions extends React.Component {
     }
   }
 
-  async getShuffledArr (array){
-    let newArray = [...array]
+  async getShuffledArr(array) {
+    const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i -= 1) {
-        let rand = Math.floor(Math.random() * (i + 1));
-        [newArray[i],newArray[rand]] = [newArray[rand], newArray[i]]
+      const rand = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[rand]] = [newArray[rand], newArray[i]];
     }
     return newArray;
   }

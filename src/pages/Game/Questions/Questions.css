@@ -6,9 +6,9 @@
 }
 
 .correct-border {
-  border: 3px solid rbd(6, 240, 15);
+  border: 3px solid rgb(6, 240, 15);
 }
 
 .incorrect-border {
-  border: 3px solid rbd(255, 0, 0);
+  border: 3px solid rgb(255, 0, 0);
 }
