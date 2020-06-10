@@ -11,8 +11,8 @@ class Questions extends React.Component {
       category: '',
       question: '',
       time: '30',
-      correct_answer: '',
-      incorrect_answers: [],
+      correctAnswer: '',
+      incorrectAnswers: [],
       options: [],
       index: 0,
     };
@@ -27,8 +27,8 @@ class Questions extends React.Component {
       category: questions[index].category,
       question: questions[index],
       time: '30',
-      correct_answer: questions[index].correct_answer,
-      incorrect_answers: questions[index].incorrect_answers,
+      correctAnswer: questions[index].correct_answer,
+      incorrectAnswers: questions[index].incorrect_answers,
       options,
       index: index + 1,
     });
@@ -37,20 +37,20 @@ class Questions extends React.Component {
   renderButton() {
     const { index } = this.state;
     return index !== 5 ?
-     <button onClick={() => this.nextQuestion(index)}>PRÓXIMA</button> :
-     <div>
-      <button><Link to="/">Jogar novamente</Link></button>
-      <button><Link to="/feedback">Finalizar</Link></button>
-    </div>;
+      <button onClick={() => this.nextQuestion(index)}>PRÓXIMA</button> :
+      <div>
+        <button><Link to="/">Jogar novamente</Link></button>
+        <button><Link to="/feedback">Finalizar</Link></button>
+      </div>;
   }
 
   renderOptions() {
     let index = -1;
-    const { options, correct_answer } = this.state;
+    const { options, correctAnswer } = this.state;
     return (
       <div>
         {options.map((option) => (
-          (option === correct_answer) ?
+          (option === correctAnswer) ?
             <button data-testid="correct-answer" key={option}>{option}</button> :
             <button data-testid={`wrong-answer-${index += 1}`} key={option}>{option}</button>
         ))}
@@ -81,12 +81,23 @@ class Questions extends React.Component {
         </section>
       </section>
     );
-  };
+  }
 }
 
 const mapStateToProps = (state) => ({
   questions: state.questions.questions,
 });
+
+Questions.defaultProps = {
+  question: [{
+    category: '',
+    correct_answer: '',
+    difficulty: '',
+    incorrect_answers: [''],
+    question: '',
+    type: '',
+  }],
+}
 
 Questions.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.shape({

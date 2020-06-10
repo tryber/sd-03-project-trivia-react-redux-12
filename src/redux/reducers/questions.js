@@ -5,7 +5,8 @@ import {
 const INITIAL_STATE = {
   isFetching: false,
   questions: [],
-}
+};
+
 function questions(state = INITIAL_STATE, action) {
   switch (action.type) {
     case REQUEST_QUESTIONS:

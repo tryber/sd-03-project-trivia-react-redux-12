@@ -9,14 +9,16 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = { token: '' };
+    this.attLocalState =   this.attLocalState.bind(this);
+  }
+
+  componentDidMount() {
+    this.attLocalState();
   }
 
   attLocalState() {
     const token = localStorage.getItem('token');
     this.setState({ token });
-  }
-  componentDidMount() {
-    this.attLocalState();
   }
 
   componentDidUpdate(_prevProps, prevState) {
@@ -46,6 +48,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 Game.propTypes = {
   triviaAPIs: PropTypes.func.isRequired,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
