@@ -44,7 +44,7 @@ class Questions extends React.Component {
       <button onClick={() => this.nextQuestion(index)}>PRÓXIMA</button> :
       <div>
         <button><Link to="/">Jogar novamente</Link></button>
-        <button><Link to="/feedback">Finalizar</Link></button>
+        <button><Link to="/feedback">Ver pontuação</Link></button>
       </div>;
   }
 
