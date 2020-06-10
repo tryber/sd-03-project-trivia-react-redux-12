@@ -14,7 +14,9 @@ class Questions extends React.Component {
       correctAnswer: '',
       incorrectAnswers: [],
       options: [],
-      index: 1,
+      index: 0,
+      answered: false,
+      disabledOption: false,
     };
   }
 
@@ -24,28 +26,52 @@ class Questions extends React.Component {
     }
   }
 
-  nextQuestion(index) {
-    const { questions } = this.props;
-    const options = [questions[index].correct_answer, ...questions[index].incorrect_answers];
-    this.setState({
-      category: questions[index].category,
-      question: questions[index],
-      time: '30',
-      correctAnswer: questions[index].correct_answer,
-      incorrectAnswers: questions[index].incorrect_answers,
-      options,
-      index: index + 1,
-    });
+  async getShuffledArr (array){
+    for (var i = array.length - 1; i > 0; i--) {
+        var rand = Math.floor(Math.random() * (i + 1));
+        [array[i], array[rand]] = [array[rand], array[i]]
+    }
+    return array;
   }
 
-  renderButton() {
-    const { index } = this.state;
-    return index !== 5 ?
-      <button onClick={() => this.nextQuestion(index)}>PRÓXIMA</button> :
-      <div>
-        <button><Link to="/">Jogar novamente</Link></button>
-        <button><Link to="/feedback">Ver pontuação</Link></button>
-      </div>;
+  nextQuestion(index) {
+    this.setState({  answered: false, disabledOption: false })
+    const { questions } = this.props;
+    const options = [questions[index].correct_answer, ...questions[index].incorrect_answers];
+    this.getShuffledArr(options).then(
+      this.setState({
+        category: questions[index].category,
+        question: questions[index],
+        time: '30',
+        correctAnswer: questions[index].correct_answer,
+        incorrectAnswers: questions[index].incorrect_answers,
+        options,
+        index: index + 1,
+      })
+    );
+  }
+
+  renderButtons() {
+    const { index, answered } = this.state;
+    if (answered) {
+      return index < 5 ?
+      <button data-testid="btn-next" onClick={() => this.nextQuestion(index)}>Próxima</button> :
+      <Link to="/feedback"><button data-testid="btn-next">Próxima</button></Link>
+    }
+  }
+
+  optionsButtons(dataTestId, option) {
+    const { disabledOption } = this.state;
+    return (
+      <button
+        disabled={disabledOption}
+        onClick={() => this.setState({ answered: true, disabledOption: true })}
+        data-testid={dataTestId}
+        key={option}
+      >
+        {option}
+      </button>
+    );
   }
 
   renderOptions() {
@@ -56,12 +82,12 @@ class Questions extends React.Component {
         {options.map((option) => {
           if (option === correctAnswer) {
             return (
-              <button data-testid="correct-answer" key={option}>{option}</button>
+              this.optionsButtons("correct-answer", option)
             );
           }
           index += 1;
           return (
-            <button data-testid={`wrong-answer-${index}`} key={option}>{option}</button>
+            this.optionsButtons(`wrong-answer-${index}`, option)
           );
         })}
       </div>
@@ -85,7 +111,7 @@ class Questions extends React.Component {
         </section>
         <section>
           {this.renderOptions()}
-          {this.renderButton()}
+          {this.renderButtons()}
         </section>
       </section>
     );
