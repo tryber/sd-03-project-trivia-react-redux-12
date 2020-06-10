@@ -1,20 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import './Header.css';
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { points: '0', hash: '187735621/82b2e6594d426239a164b4d585e66480'};
+    this.state = { points: '0' };
   }
-  render() {
-    const exempleName = 'Lucas Cardoso';
 
+  render() {
+    const { hash, name  } = this.props;
     return (
       <header className="Game-Header">
         <div className="Personal-Info">
-          <img data-testid="header-profile-picture" src={`https://pt.gravatar.com/userimage/${this.state.hash}`} />
-          <p data-testid="header-player-name">Jogador {`${exempleName}`}</p>
+          <img data-testid="header-profile-picture" src={`https://www.gravatar.com/avatar/${hash}`} />
+          <p data-testid="header-player-name">Nome da pessoa: {`${name}`}</p>
         </div>
         <div>
           <p data-testid="header-score">Pontos: {`${this.state.points}`}</p>
@@ -24,8 +25,14 @@ class Header extends React.Component {
   }
 }
 
+Header.propTypes = {
+  name: PropTypes.string.isRequired,
+  hash: PropTypes.string.isRequired,
+};
+
 const mapStateToProps = (state) => ({
-  questions: state.questions.questions,
-})
+  name: state.PIreducer.name,
+  hash: state.PIreducer.hash,
+});
 
 export default connect(mapStateToProps)(Header);

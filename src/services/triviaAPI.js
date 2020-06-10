@@ -22,7 +22,6 @@ export const fetchToken = () => fetch(URL_TOKEN)
 
 export function triviaAPI(token) {
   return (dispatch) => {
-    console.log(token);
     dispatch(requestQuestions());
     return fetch(`https://opentdb.com/api.php?amount=5&token=${token}`)
       .then((response) => response.json())

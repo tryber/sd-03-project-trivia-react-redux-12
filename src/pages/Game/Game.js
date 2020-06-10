@@ -10,8 +10,8 @@ class Game extends React.Component {
     this.state = { token: '' };
   }
   componentDidMount() {
-    fetchToken(URL_TOKEN)
-      .then(response => this.setState({ token: response.token }));
+    const token = localStorage.getItem('token');
+    this.setState({ token });
   }
 
   componentDidUpdate(_prevProps, prevState) {
