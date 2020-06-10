@@ -26,7 +26,7 @@ class Questions extends React.Component {
     }
   }
 
-  async getShuffledArr(array) {
+  static async getShuffledArr(array) {
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i -= 1) {
       const rand = Math.floor(Math.random() * (i + 1));
@@ -39,7 +39,7 @@ class Questions extends React.Component {
     this.setState({ answered: false, disabledOption: false });
     const { questions } = this.props;
     const options = [questions[index].correct_answer, ...questions[index].incorrect_answers];
-    this.getShuffledArr(options)
+    Questions.getShuffledArr(options)
     .then((newArray) => (
       this.setState({
         category: questions[index].category,
