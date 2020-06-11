@@ -8,7 +8,7 @@ class Feedback extends React.Component {
         name: 'clayton',
         assertions: 2,
         score: 200,
-        gravatarEmail: 'fulano@gmail.com'
+        gravatarEmail: 'fulano@gmail.com',
       },
     };
     return (
