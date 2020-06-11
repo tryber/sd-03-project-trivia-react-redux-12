@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './Header/Header';
+import Header from '../Game/Header/Header';
 
 class Feedback extends React.Component {
 
@@ -14,11 +14,12 @@ class Feedback extends React.Component {
     };
     return (
       <div>
-        <Header/>
+        <Header />
         {state.player.assertions < 3
         ? <h1 data-testid="feedback-text"> Podia ser melhor...</h1>
         : <h1 data-testid="feedback-text">Mandou bem!</h1>}
         <button data-testid="btn-ranking">ranking</button>
+        <button data-testid="btn-play-again">Jogar novamente</button>
 
       </div>
     );
