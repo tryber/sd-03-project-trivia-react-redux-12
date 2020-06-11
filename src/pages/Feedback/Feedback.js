@@ -18,7 +18,7 @@ class Feedback extends React.Component {
         {state.player.assertions < 3
         ? <h1 data-testid="feedback-text"> Podia ser melhor...</h1>
         : <h1 data-testid="feedback-text">Mandou bem!</h1>}
-        <button data-testid="btn-ranking">ranking</button>
+        <button data-testid="btn-ranking">Ver Ranking</button>
         <button data-testid="btn-play-again">Jogar novamente</button>
 
       </div>
