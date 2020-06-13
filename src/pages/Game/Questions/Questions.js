@@ -17,6 +17,8 @@ class Questions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      correct: '',
+      wrong: '',
       category: '',
       question: '',
       time: '30',
@@ -54,11 +56,18 @@ class Questions extends React.Component {
   }
 
   optionsButtons(dataTestId, option) {
-    const { disabledOption } = this.state;
+    const { disabledOption, correct, wrong } = this.state;
+    const className = dataTestId === 'correct-answer' ? correct : wrong;
     return (
       <button
+        className={className}
         disabled={disabledOption}
-        onClick={() => this.setState({ answered: true, disabledOption: true })}
+        onClick={() => this.setState({
+          answered: true,
+          disabledOption: true,
+          wrong: 'wrong',
+          correct: 'correct',
+        })}
         data-testid={dataTestId}
         key={option}
       >
@@ -71,7 +80,12 @@ class Questions extends React.Component {
     const { index, answered } = this.state;
     if (answered) {
       return index < 5 ?
-        <button data-testid="btn-next" onClick={() => this.nextQuestion(index)}>Próxima</button> :
+        <button
+          data-testid="btn-next"
+          onClick={() => this.nextQuestion(index)}
+        >
+          Próxima
+        </button> :
         <Link to="/feedback"><button data-testid="btn-next">Próxima</button></Link>;
     }
     return null;
