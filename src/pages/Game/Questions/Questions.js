@@ -33,6 +33,13 @@ class Questions extends React.Component {
     this.checkResponse = this.checkResponse.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.questions !== this.props.questions) {
+      this.nextQuestion(0);
+      this.timer();
+    }
+  }
+
   timer() {
     const interval = setInterval(() => {
       this.setState((state) => ({ timer: state.timer - 1 }));
@@ -40,13 +47,6 @@ class Questions extends React.Component {
       return (timer === 0 && this.checkResponse('wrong-answer'));
     }, 1000);
     this.setState({ intervalId: interval });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.questions !== this.props.questions) {
-      this.nextQuestion(0);
-      this.timer();
-    }
   }
 
   checkResponse(dataTestId) {
