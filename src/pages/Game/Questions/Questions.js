@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Questions.css';
 
@@ -33,21 +33,11 @@ class Questions extends React.Component {
     this.checkResponse = this.checkResponse.bind(this);
   }
 
-  checkResponse(dataTestId) {
-    this.setState({
-      answered: true,
-      disabledOption: true,
-      wrong: 'wrong',
-      correct: 'correct',
-    });
-    return dataTestId === 'correct-answer' ? console.log('Somar pontos') : null;
-  }
-
   timer() {
     const interval = setInterval(() => {
-      this.setState((state) =>({ timer: state.timer -= 1 }))
+      this.setState((state) => ({ timer: state.timer - 1 }));
       const { timer } = this.state;
-      (timer === 0 && this.checkResponse('wrong-answer'));
+      return (timer === 0 && this.checkResponse('wrong-answer'));
     }, 1000);
     this.setState({ intervalId: interval });
   }
@@ -57,6 +47,16 @@ class Questions extends React.Component {
       this.nextQuestion(0);
       this.timer();
     }
+  }
+
+  checkResponse(dataTestId) {
+    this.setState({
+      answered: true,
+      disabledOption: true,
+      wrong: 'wrong',
+      correct: 'correct',
+    });
+    return dataTestId === 'correct-answer' ? console.log('Somar pontos') : null;
   }
 
   nextQuestion(index) {
@@ -146,7 +146,7 @@ class Questions extends React.Component {
             {question}
           </div>
           <div>
-            {timer}
+            {timer >= 0 && timer}
           </div>
         </section>
         <section className="buttons-container">
