@@ -12,3 +12,19 @@
 .wrong {
   border: 3px solid red;
 }
+
+.buttons-container {
+  width: 30%;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.options {
+  margin: 1% 0;
+  padding: 1%;
+}
