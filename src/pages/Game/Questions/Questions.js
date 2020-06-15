@@ -96,8 +96,9 @@ class Questions extends React.Component {
       gravatarEmail:''
      }
    }
+   console.log(this.props)
     localStorage.setItem('state',JSON.stringify(objLocalStore));
-    
+
 
   }
 
