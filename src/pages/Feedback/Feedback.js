@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from '../Game/Header/Header';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Header from '../Game/Header/Header';
 
 class Feedback extends React.Component {
 
@@ -23,8 +23,8 @@ class Feedback extends React.Component {
         : <h3 data-testid="feedback-text">Mandou bem!</h3>}
         <h3 data-testid="feedback-total-score">Total de Pontos</h3>
         <h3 data-testid="feedback-total-question">Total de questões certas</h3>
-        <Link to='/ranking'><button data-testid="btn-ranking">Ver Ranking</button></Link>
-        <Link to='/'> <button data-testid="btn-play-again">Jogar novamente</button></Link>
+        <Link to="/ranking"><button data-testid="btn-ranking">Ver Ranking</button></Link>
+        <Link to="/"> <button data-testid="btn-play-again">Jogar novamente</button></Link>
       </div>
     );
   }
