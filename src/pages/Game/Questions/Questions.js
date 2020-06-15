@@ -17,9 +17,12 @@ class Questions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      interval: 0,
+      correct: '',
+      wrong: '',
       category: '',
       question: '',
-      time: '30',
+      timer: 30,
       correctAnswer: '',
       incorrectAnswers: [],
       options: [],
@@ -27,16 +30,43 @@ class Questions extends React.Component {
       answered: false,
       disabledOption: false,
     };
+    this.checkResponse = this.checkResponse.bind(this);
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.questions !== this.props.questions) {
       this.nextQuestion(0);
+      this.timer();
     }
   }
 
+  timer() {
+    const interval = setInterval(() => {
+      this.setState((state) => ({ timer: state.timer - 1 }));
+      const { timer } = this.state;
+      return (timer === 0 && this.checkResponse('wrong-answer'));
+    }, 1000);
+    this.setState({ intervalId: interval });
+  }
+
+  checkResponse(dataTestId) {
+    this.setState({
+      answered: true,
+      disabledOption: true,
+      wrong: 'wrong',
+      correct: 'correct',
+    });
+    return dataTestId === 'correct-answer' ? console.log('Somar pontos') : null;
+  }
+
   nextQuestion(index) {
-    this.setState({ answered: false, disabledOption: false });
+    clearInterval(this.state.interval);
+    this.setState({
+      answered: false,
+      disabledOption: false,
+      wrong: '',
+      correct: '',
+    });
     const { questions } = this.props;
     const options = [questions[index].correct_answer, ...questions[index].incorrect_answers];
     Questions.getShuffledArr(options)
@@ -44,7 +74,7 @@ class Questions extends React.Component {
       this.setState({
         category: questions[index].category,
         question: questions[index],
-        time: '30',
+        timer: 30,
         correctAnswer: questions[index].correct_answer,
         incorrectAnswers: questions[index].incorrect_answers,
         options: newArray,
@@ -54,11 +84,13 @@ class Questions extends React.Component {
   }
 
   optionsButtons(dataTestId, option) {
-    const { disabledOption } = this.state;
+    const { disabledOption, correct, wrong } = this.state;
+    const className = dataTestId === 'correct-answer' ? correct : wrong;
     return (
       <button
+        className={`options ${className}`}
         disabled={disabledOption}
-        onClick={() => this.setState({ answered: true, disabledOption: true })}
+        onClick={() => this.checkResponse(dataTestId)}
         data-testid={dataTestId}
         key={option}
       >
@@ -71,7 +103,12 @@ class Questions extends React.Component {
     const { index, answered } = this.state;
     if (answered) {
       return index < 5 ?
-        <button data-testid="btn-next" onClick={() => this.nextQuestion(index)}>Próxima</button> :
+        <button
+          data-testid="btn-next"
+          onClick={() => this.nextQuestion(index)}
+        >
+          Próxima
+        </button> :
         <Link to="/feedback"><button data-testid="btn-next">Próxima</button></Link>;
     }
     return null;
@@ -81,7 +118,7 @@ class Questions extends React.Component {
     let index = -1;
     const { options, correctAnswer } = this.state;
     return (
-      <div>
+      <div className="options-container">
         {options.map((option) => {
           if (option === correctAnswer) {
             return (
@@ -98,7 +135,7 @@ class Questions extends React.Component {
   }
 
   render() {
-    const { category, question: { question }, time } = this.state;
+    const { category, question: { question }, timer } = this.state;
     return (
       <section className="Questions-Container">
         <section>
@@ -109,10 +146,10 @@ class Questions extends React.Component {
             {question}
           </div>
           <div>
-            {time}
+            {timer >= 0 && timer}
           </div>
         </section>
-        <section>
+        <section className="buttons-container">
           {this.renderOptions()}
           {this.renderButtons()}
         </section>

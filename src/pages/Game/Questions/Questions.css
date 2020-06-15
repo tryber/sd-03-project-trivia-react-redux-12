@@ -5,10 +5,25 @@
   justify-content: space-around;
 }
 
-.correct-border {
+.correct {
   border: 3px solid rgb(6, 240, 15);
 }
 
-.incorrect-border {
+.wrong {
   border: 3px solid red;
+}
+
+.buttons-container {
+  width: 30%;
+}
+
+.options-container {
+  display: flex;
+  flex-flow: column wrap;
+  width: 100%;
+}
+
+.options {
+  margin: 1% 0;
+  padding: 1%;
 }
