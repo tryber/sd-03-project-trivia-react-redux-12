@@ -155,8 +155,9 @@ class Questions extends React.Component {
             {question}
           </div>
         </section>
-        <div>
+        <div className="time">
           {timer >= 0 && `00:00:${timer.toFixed()}`}
+          {timer < 0 && <span>TIME IS OVER</span>}
         </div>
         <section className="buttons-container">
           {this.renderOptions()}
