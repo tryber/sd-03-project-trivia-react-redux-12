@@ -33,6 +33,19 @@ class Questions extends React.Component {
     this.checkResponse = this.checkResponse.bind(this);
   }
 
+  componentDidMount() {
+    const objLocalStore = {
+      player: {
+        name: this.props.name,
+        assertions:0,
+        score:0,
+        gravatarEmail:''
+       }
+      }
+      localStorage.setItem('state',JSON.stringify(objLocalStore));
+
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.questions !== this.props.questions) {
       this.nextQuestion(0);
@@ -56,7 +69,36 @@ class Questions extends React.Component {
       wrong: 'wrong',
       correct: 'correct',
     });
-    return dataTestId === 'correct-answer' ? console.log('Somar pontos') : null;
+    return dataTestId === 'correct-answer' ?  this.sumScoreAndSaveInformations(this.state.timer, this.state.question.difficulty) : null;
+  }
+
+  sumScoreAndSaveInformations(timer, level ) {
+    let scoreQuestion = 0;
+    let localstorageScore =JSON.parse(localStorage.getItem('state'));
+    switch (level) {
+     case 'hard':
+   scoreQuestion += localstorageScore.player.score + 10 + (timer * 3)
+       break;
+     case 'medium':
+      scoreQuestion += localstorageScore.player.score  + 10 + (timer * 2)
+       break;
+     case 'easy':
+      scoreQuestion += localstorageScore.player.score  + 10 + (timer * 1)
+       break;
+     default:
+       break;
+   }
+   const objLocalStore = {
+    player: {
+      name: this.props.name,
+      assertions:0,
+      score:scoreQuestion,
+      gravatarEmail:''
+     }
+   }
+    localStorage.setItem('state',JSON.stringify(objLocalStore));
+    
+
   }
 
   nextQuestion(index) {
@@ -160,6 +202,7 @@ class Questions extends React.Component {
 
 const mapStateToProps = (state) => ({
   questions: state.questions.questions,
+  name: state.PIreducer.name,
 });
 
 Questions.propTypes = {
