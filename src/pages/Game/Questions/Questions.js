@@ -151,12 +151,20 @@ class Questions extends React.Component {
     if (answered) {
       return index < 5 ?
         <button
+          className="next"
           data-testid="btn-next"
           onClick={() => this.nextQuestion(index)}
         >
           Próxima
         </button> :
-        <Link to="/feedback"><button data-testid="btn-next">Próxima</button></Link>;
+        <Link to="/feedback">
+          <button
+            className="next"
+            data-testid="btn-next"
+          >
+            Próxima
+          </button>
+        </Link>;
     }
     return null;
   }
@@ -185,17 +193,19 @@ class Questions extends React.Component {
     const { category, question: { question }, timer } = this.state;
     return (
       <section className="Questions-Container">
-        <section>
-          <div data-testid="question-category">
+        <section className="Question-box">
+          <div className="Category" data-testid="question-category">
             {category}
           </div>
+          <div className="Line" />
           <div data-testid="question-text">
             {question}
           </div>
-          <div>
-            {timer >= 0 && timer}
-          </div>
         </section>
+        <div className="time">
+          {timer >= 0 && `00:00:${timer.toFixed()}`}
+          {timer < 0 && <span>TIME IS OVER</span>}
+        </div>
         <section className="buttons-container">
           {this.renderOptions()}
           {this.renderButtons()}

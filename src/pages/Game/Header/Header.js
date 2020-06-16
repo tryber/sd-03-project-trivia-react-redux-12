@@ -15,14 +15,25 @@ class Header extends React.Component {
       <header className="Game-Header">
         <div className="Personal-Info">
           <img
+            className="Player-Picture"
             data-testid="header-profile-picture"
             src={`https://www.gravatar.com/avatar/${hash}`}
             alt="Imagem do jogador"
           />
-          <p data-testid="header-player-name">Nome da pessoa: {`${name}`}</p>
+          <p
+            className="Player"
+            data-testid="header-player-name"
+          >
+            Nome da pessoa: {`${name}`}
+          </p>
         </div>
-        <div>
-          <p data-testid="header-score">Pontos: {`${this.state.points}`}</p>
+        <div className="Personal-Info">
+          <p
+            className="Player"
+            data-testid="header-score"
+          >
+            Pontos: {`${this.state.points}`}
+          </p>
         </div>
       </header>
     );
