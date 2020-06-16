@@ -73,11 +73,7 @@ class Home extends React.Component {
         </button>
         <Link to="/setting">
           <button className="set-btn" data-testid="btn-settings" type="button">
-            <img
-              src="https://img.icons8.com/ios-filled/50/000000/automatic.png"
-              alt="setting icon"
-              width="35px"
-            />
+            <img src="https://img.icons8.com/ios-filled/50/000000/automatic.png"alt="setting icon" />
           </button>
         </Link>
       </div>

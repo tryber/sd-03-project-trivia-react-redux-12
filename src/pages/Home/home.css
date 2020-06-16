@@ -1,3 +1,4 @@
+
 .form-container {
   animation: opacitySign 1s 1 forwards;
   background-color: #262626;
@@ -83,7 +84,6 @@ h1 {
   border: none;
   border-radius: 10%;
   cursor: pointer;
-  height: 45px;
-  text-align: center;
-  width: 49px;
+  height: 52px;
+  width: 60px;
 }
