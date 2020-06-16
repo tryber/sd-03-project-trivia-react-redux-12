@@ -18,7 +18,7 @@ class Questions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      interval: 0,
+      intervalId: 0,
       correct: '',
       wrong: '',
       category: '',
@@ -33,18 +33,7 @@ class Questions extends React.Component {
     };
     this.checkResponse = this.checkResponse.bind(this);
     this.sumScoreAndSaveInformations = this.sumScoreAndSaveInformations.bind(this);
-  }
-
-  componentDidMount() {
-    // const state = {
-    //   player: {
-    //     name: this.props.name,
-    //     assertions: 0,
-    //     score: 0,
-    //     gravatarEmail: this.props.email,
-    //   },
-    // };
-    // localStorage.setItem('state', JSON.stringify(state));
+    this.saveRankings = this.saveRankings.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -64,6 +53,7 @@ class Questions extends React.Component {
   }
 
   checkResponse(dataTestId) {
+    clearInterval(this.state.intervalId);
     this.setState({
       answered: true,
       disabledOption: true,
@@ -106,7 +96,7 @@ class Questions extends React.Component {
   }
 
   nextQuestion(index) {
-    clearInterval(this.state.interval);
+    clearInterval(this.state.intervalId);
     this.setState({
       answered: false,
       disabledOption: false,
@@ -146,6 +136,19 @@ class Questions extends React.Component {
     );
   }
 
+  saveRankings() {
+    const playerState = JSON.parse(localStorage.getItem('state'));
+    const { player: { name, score }} = playerState;
+    const picture = `https://www.gravatar.com/avatar/${this.props.hash}`;
+    if (localStorage.getItem('ranking')){
+      let currentRanking = JSON.parse(localStorage.getItem('ranking'));
+      currentRanking = [...currentRanking, { name, score, picture }];
+      localStorage.setItem('ranking', JSON.stringify(currentRanking));
+    } else {
+      localStorage.setItem('ranking', JSON.stringify([{ name, score, picture }]));
+    }
+  }
+
   renderButtons() {
     const { index, answered } = this.state;
     if (answered) {
@@ -161,6 +164,7 @@ class Questions extends React.Component {
           <button
             className="next"
             data-testid="btn-next"
+            onClick={this.saveRankings}
           >
             Próxima
           </button>
@@ -219,6 +223,7 @@ const mapStateToProps = (state) => ({
   questions: state.questions.questions,
   name: state.PIreducer.name,
   email: state.PIreducer.email,
+  hash: state.PIreducer.hash,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -236,6 +241,7 @@ Questions.propTypes = {
     type: PropTypes.string.isRequired,
   })).isRequired,
   gameInfo: PropTypes.func.isRequired,
+  hash: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);

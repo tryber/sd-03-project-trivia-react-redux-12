@@ -15,15 +15,11 @@ class Ranking extends React.Component {
   }
 
   render() {
-    const mock = [
-      {name: 'Thiago Aguiar', score: 10, picture: 'https://www.gravatar.com/avatar/1ac1132092083b6b253f323a65ff80dc'},
-      {name: 'Lucas Soares', score: 32, picture: 'https://www.gravatar.com/avatar/80651d42c055aa99d151ab6f59649982'},
-      {name: 'Clayton Pereira', score: 25, picture: 'https://www.gravatar.com/avatar/2d3bf5b67282f5f466e503d7022abcf3'},
-    ]
+    const rankings = JSON.parse(localStorage.getItem('ranking'));
     return (
       <div className="ranking-container">
         <h1>Rankings</h1>
-          {this.renderRanking(mock)}
+          {this.renderRanking(rankings)}
         <Link to="/">
           <button data-testid="btn-go-home">Tela inicial</button>
         </Link>
