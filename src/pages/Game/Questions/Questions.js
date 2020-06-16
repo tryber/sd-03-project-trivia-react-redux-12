@@ -155,7 +155,7 @@ class Questions extends React.Component {
         <button
           className="next"
           data-testid="btn-next"
-          onClick={() => {this.nextQuestion(index); this.timer();}}
+          onClick={() => { this.nextQuestion(index); this.timer(); }}
         >
           Próxima
         </button> :
