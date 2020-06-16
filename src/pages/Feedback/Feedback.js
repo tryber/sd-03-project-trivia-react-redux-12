@@ -7,22 +7,32 @@ import Header from '../Game/Header/Header';
 class Feedback extends React.Component {
 
   render() {
-    const state = {
-      player: {
-        name: 'clayton',
-        assertions: 2,
-        score: 200,
-        gravatarEmail: 'fulano@gmail.com',
-      },
-    };
+    const { score, assertions } = this.props;
+    let feedback;
+    if (assertions < 3) {
+      feedback = 'Podia ser melhor...';
+    } else if (assertions >= 3) {
+      feedback = 'Mandou bem!';
+    }
+
     return (
       <div>
         <Header />
-        {state.player.assertions < 3
-        ? <h3 data-testid="feedback-text"> Podia ser melhor...</h3>
-        : <h3 data-testid="feedback-text">Mandou bem!</h3>}
-        <h3 data-testid="feedback-total-score">Total de Pontos</h3>
-        <h3 data-testid="feedback-total-question">Total de questões certas</h3>
+        <h3 data-testid="feedback-text">{feedback}</h3>
+        <p
+          data-testid="feedback-total-score"
+        >{score}
+        </p>
+        <label
+          htmlFor="assertion"
+        >
+          Total de Pontos:
+        <h5
+          name="assertion"
+          data-testid="feedback-total-question"
+        >
+          {assertions}</h5>
+        </label>
         <Link to="/ranking"><button data-testid="btn-ranking">Ver Ranking</button></Link>
         <Link to="/"> <button data-testid="btn-play-again">Jogar novamente</button></Link>
       </div>
@@ -31,13 +41,13 @@ class Feedback extends React.Component {
 }
 
 Feedback.propTypes = {
-  questions: PropTypes.arrayOf(PropTypes.shape({
-    category: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-  })).isRequired,
+  score: PropTypes.string.isRequired,
+  assertions: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   questions: state.questions.questions,
+  score: state.gameInfoReducer.score,
+  assertions: state.gameInfoReducer.assertions,
 });
 export default connect(mapStateToProps)(Feedback);
