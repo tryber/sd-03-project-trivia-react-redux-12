@@ -33,10 +33,6 @@ class Feedback extends React.Component {
 Feedback.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string.isRequired,
-    correct_answer: PropTypes.string.isRequired,
-    difficulty: PropTypes.string.isRequired,
-    incorrect_answers: PropTypes.arrayOf(PropTypes.string.isRequired),
-    question: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   })).isRequired,
 };
