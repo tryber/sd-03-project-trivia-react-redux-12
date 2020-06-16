@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Questions.css';
+import correctAnswer from '../../../redux/actions/gameInfoActions';
 
 class Questions extends React.Component {
   static async getShuffledArr(array) {
@@ -23,7 +24,7 @@ class Questions extends React.Component {
       category: '',
       question: '',
       timer: 30,
-      correctAnswer: '',
+      localCorrectAnswer: '',
       incorrectAnswers: [],
       options: [],
       index: 0,
@@ -31,6 +32,7 @@ class Questions extends React.Component {
       disabledOption: false,
     };
     this.checkResponse = this.checkResponse.bind(this);
+    this.sumScoreAndSaveInformations = this.sumScoreAndSaveInformations.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -56,7 +58,39 @@ class Questions extends React.Component {
       wrong: 'wrong',
       correct: 'correct',
     });
-    return dataTestId === 'correct-answer' ? console.log('Somar pontos') : null;
+    return dataTestId === 'correct-answer' ? this.sumScoreAndSaveInformations(this.state.timer, this.state.question.difficulty) : 'wrong-answer';
+  }
+
+  sumScoreAndSaveInformations(timer, level) {
+    const { gameInfo } = this.props;
+    let scoreQuestion = 0;
+    const localstorageScore = JSON.parse(localStorage.getItem('state'));
+    switch (level) {
+      case 'hard':
+        scoreQuestion += localstorageScore.player.score + 10 + (timer * 3);
+        break;
+      case 'medium':
+        scoreQuestion += localstorageScore.player.score + 10 + (timer * 2);
+        break;
+      case 'easy':
+        scoreQuestion += localstorageScore.player.score + 10 + (timer * 1);
+        break;
+      default:
+        break;
+    }
+    const assertionsStorage = localstorageScore.player.assertions;
+    const state = {
+      player: {
+        name: this.props.name,
+        assertions: assertionsStorage + 1,
+        score: scoreQuestion,
+        gravatarEmail: this.props.email,
+      },
+    };
+
+    localStorage.setItem('state', JSON.stringify(state));
+    gameInfo(scoreQuestion, state.player.assertions);
+    return 'correct-answer';
   }
 
   nextQuestion(index) {
@@ -75,7 +109,7 @@ class Questions extends React.Component {
         category: questions[index].category,
         question: questions[index],
         timer: 30,
-        correctAnswer: questions[index].correct_answer,
+        localCorrectAnswer: questions[index].correct_answer,
         incorrectAnswers: questions[index].incorrect_answers,
         options: newArray,
         index: index + 1,
@@ -86,6 +120,7 @@ class Questions extends React.Component {
   optionsButtons(dataTestId, option) {
     const { disabledOption, correct, wrong } = this.state;
     const className = dataTestId === 'correct-answer' ? correct : wrong;
+    console.log(dataTestId, 'dataTestId');
     return (
       <button
         className={`options ${className}`}
@@ -124,11 +159,11 @@ class Questions extends React.Component {
 
   renderOptions() {
     let index = -1;
-    const { options, correctAnswer } = this.state;
+    const { options, localCorrectAnswer } = this.state;
     return (
       <div className="options-container">
         {options.map((option) => {
-          if (option === correctAnswer) {
+          if (option === localCorrectAnswer) {
             return (
               this.optionsButtons('correct-answer', option)
             );
@@ -170,9 +205,16 @@ class Questions extends React.Component {
 
 const mapStateToProps = (state) => ({
   questions: state.questions.questions,
+  name: state.PIreducer.name,
+  email: state.PIreducer.email,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  gameInfo: (assertions, score) => dispatch(correctAnswer(assertions, score)),
+});
 Questions.propTypes = {
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string.isRequired,
     correct_answer: PropTypes.string.isRequired,
@@ -181,6 +223,7 @@ Questions.propTypes = {
     question: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   })).isRequired,
+  gameInfo: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Questions);
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);

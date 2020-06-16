@@ -1,13 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-class Ranking extends React.Component {
+class Feedback extends React.Component {
   render() {
     return (
       <div>
-        Ranking
+        Feedback
       </div>
     );
   }
 }
 
-export default Ranking;
+Feedback.propTypes = {
+  questions: PropTypes.arrayOf(PropTypes.shape({
+    category: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  })).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  questions: state.questions.questions,
+});
+export default connect(mapStateToProps)(Feedback);

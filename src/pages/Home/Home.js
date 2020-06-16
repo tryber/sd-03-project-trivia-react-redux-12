@@ -20,6 +20,20 @@ class Home extends React.Component {
     this.submitInfo = this.submitInfo.bind(this);
   }
 
+  componentDidUpdate(_prevProps, prevState) {
+    if (prevState !== this.state) {
+      const state = {
+        player: {
+          name: this.state.name,
+          assertions: 0,
+          score: 0,
+          gravatarEmail: this.state.email,
+        },
+      };
+      localStorage.setItem('state', JSON.stringify(state));
+    }
+  }
+
   submitInfo() {
     const { name, email } = this.state;
     const { setEmailInfo, setNameInfo } = this.props;
