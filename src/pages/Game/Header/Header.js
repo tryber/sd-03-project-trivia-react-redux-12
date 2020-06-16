@@ -10,7 +10,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { hash, name } = this.props;
+    const { hash, name, score } = this.props;
     return (
       <header className="Game-Header">
         <div className="Personal-Info">
@@ -32,7 +32,7 @@ class Header extends React.Component {
             className="Player"
             data-testid="header-score"
           >
-            Pontos: {this.state.points}
+            Pontos: {score}
           </p>
         </div>
       </header>
@@ -48,6 +48,7 @@ Header.propTypes = {
 const mapStateToProps = (state) => ({
   name: state.PIreducer.name,
   hash: state.PIreducer.hash,
+  score: state.gameInfoReducer.score,
 });
 
 export default connect(mapStateToProps)(Header);

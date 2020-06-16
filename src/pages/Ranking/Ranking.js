@@ -18,7 +18,7 @@ class Ranking extends React.Component {
     const rankings = JSON.parse(localStorage.getItem('ranking'));
     return (
       <div className="ranking-container">
-        <h1>Rankings</h1>
+        <h1 data-testid="ranking-title">Rankings</h1>
         {Ranking.renderRanking(rankings)}
         <Link to="/">
           <button data-testid="btn-go-home">Tela inicial</button>
