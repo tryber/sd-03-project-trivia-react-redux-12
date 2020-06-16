@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Questions.css';
+import { correctAnswer } from '../../../redux/actions/gameInfoActions';
 
 class Questions extends React.Component {
   static async getShuffledArr(array) {
@@ -23,7 +24,7 @@ class Questions extends React.Component {
       category: '',
       question: '',
       timer: 30,
-      correctAnswer: '',
+      correctAnswerState: '',
       incorrectAnswers: [],
       options: [],
       index: 0,
@@ -31,18 +32,19 @@ class Questions extends React.Component {
       disabledOption: false,
     };
     this.checkResponse = this.checkResponse.bind(this);
+    this.sumScoreAndSaveInformations = this.sumScoreAndSaveInformations.bind(this);
   }
 
   componentDidMount() {
-    const objLocalStore = {
+    const state = {
       player: {
         name: this.props.name,
         assertions: 0,
         score: 0,
-        gravatarEmail: 'sdfsdf@gmail.com',
+        gravatarEmail: this.props.email,
       },
     };
-    localStorage.setItem('state', JSON.stringify(objLocalStore));
+    localStorage.setItem('state', JSON.stringify(state));
   }
 
   componentDidUpdate(prevProps) {
@@ -72,6 +74,8 @@ class Questions extends React.Component {
   }
 
   sumScoreAndSaveInformations(timer, level) {
+    const { assertions,score , gameInfo } = this.props;
+    console.log(this.props);
     let scoreQuestion = 0;
     const localstorageScore = JSON.parse(localStorage.getItem('state'));
     switch (level) {
@@ -90,12 +94,14 @@ class Questions extends React.Component {
     const objLocalStore = {
       player: {
         name: this.props.name,
-        assertions: 0,
+        assertions: assertions + 1,
         score: scoreQuestion,
-        gravatarEmail: '',
+        gravatarEmail: this.props.email,
       },
     };
+
     localStorage.setItem('state', JSON.stringify(objLocalStore));
+    gameInfo(scoreQuestion, objLocalStore.player.assertions );
   }
 
   nextQuestion(index) {
@@ -200,8 +206,12 @@ class Questions extends React.Component {
 const mapStateToProps = (state) => ({
   questions: state.questions.questions,
   name: state.PIreducer.name,
+  email: state.PIreducer.email,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  gameInfo: (assertions, score) => dispatch(correctAnswer(assertions, score)),
+});
 Questions.propTypes = {
   name: PropTypes.string.isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape({
@@ -214,4 +224,4 @@ Questions.propTypes = {
   })).isRequired,
 };
 
-export default connect(mapStateToProps)(Questions);
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);
