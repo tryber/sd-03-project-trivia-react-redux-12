@@ -1,21 +1,97 @@
 .form-container {
-  background-color: rgba(26, 25, 25, 0.322);
-  border: black solid 2px;
+  animation: opacitySign 1s 1 forwards;
+  background-color: #262626;
+  border-radius: 6px;
+  box-shadow: 0 1px 1px black , 0 -1px 2px 0 black;
+  color: white;
   display: flex;
   flex-direction: column;
-  font-weight: 900;
+  font-family: Arial, Helvetica, sans-serif;
   height: 350px;
   justify-content: space-between;
   margin: auto;
   margin-top: 5%;
+  max-width: 400px;
   padding: 30px;
   width: 50%;
 }
 
+@media screen and ( max-width : 800px ) {
+
+  .form-container {
+    width: 90%;
+  }
+}
+
+@keyframes opacitySign {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .form-container input {
-  border-radius: 5px;
+  background-color: #262626;
+  border: 0 none;
+  border-bottom: 1px solid white;
+  box-shadow: 0 0 0 0;
+}
+
+.form-container input:focus {
+  box-shadow: 0 0 0 30px transparent;
+  outline: 0;
+}
+
+.form-container label {
+  animation: labelSpace 0.9s 1 forwards;
+  color: white;
+  margin: 0;
+  position: relative;
+  top: 12%;
+  transition: top 0.5s;
+}
+
+@keyframes labelSpace {
+
+  from {
+    top: 12%;
+  }
+
+  to {
+    top: 5%;
+  }
 }
 
 h1 {
   align-self: center;
+}
+
+.play-button {
+  align-self: center;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 30%;
+}
+
+.play-button:hover {
+  background-color: #f2f2f2;
+}
+
+.set-btn {
+  background-color: white;
+  border: none;
+  border-radius: 10%;
+  cursor: pointer;
+  height: 52px;
+  width: 60px;
+}
+
+.set-btn:hover {
+  background-color: #f2f2f2;
 }
