@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Questions.css';
-import { correctAnswer } from '../../../redux/actions/gameInfoActions';
+import correctAnswer from '../../../redux/actions/gameInfoActions';
 
 class Questions extends React.Component {
   static async getShuffledArr(array) {
@@ -24,7 +24,7 @@ class Questions extends React.Component {
       category: '',
       question: '',
       timer: 30,
-      correctAnswerState: '',
+      correctAnswer: '',
       incorrectAnswers: [],
       options: [],
       index: 0,
@@ -70,11 +70,11 @@ class Questions extends React.Component {
       wrong: 'wrong',
       correct: 'correct',
     });
-    return dataTestId === 'correct-answer' ? this.sumScoreAndSaveInformations(this.state.timer, this.state.question.difficulty) : null;
+    return dataTestId === 'correct-answer' ? this.sumScoreAndSaveInformations(this.state.timer, this.state.question.difficulty) : 'wrong-answer';
   }
 
   sumScoreAndSaveInformations(timer, level) {
-    const { assertions,score , gameInfo } = this.props;
+    const { gameInfo } = this.props;
     let scoreQuestion = 0;
     const localstorageScore = JSON.parse(localStorage.getItem('state'));
     switch (level) {
@@ -91,7 +91,7 @@ class Questions extends React.Component {
         break;
     }
     const assertionsStorage = localstorageScore.player.assertions;
-    const objLocalStore = {
+    const state = {
       player: {
         name: this.props.name,
         assertions: assertionsStorage + 1,
@@ -100,8 +100,9 @@ class Questions extends React.Component {
       },
     };
 
-    localStorage.setItem('state', JSON.stringify(objLocalStore));
-    gameInfo(scoreQuestion, objLocalStore.player.assertions );
+    localStorage.setItem('state', JSON.stringify(state));
+    gameInfo(scoreQuestion, state.player.assertions);
+    return 'correct-answer';
   }
 
   nextQuestion(index) {
@@ -131,6 +132,7 @@ class Questions extends React.Component {
   optionsButtons(dataTestId, option) {
     const { disabledOption, correct, wrong } = this.state;
     const className = dataTestId === 'correct-answer' ? correct : wrong;
+    console.log(dataTestId, 'dataTestId');
     return (
       <button
         className={`options ${className}`}
@@ -214,6 +216,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 Questions.propTypes = {
   name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string.isRequired,
     correct_answer: PropTypes.string.isRequired,
@@ -222,6 +225,7 @@ Questions.propTypes = {
     question: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   })).isRequired,
+  gameInfo: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);

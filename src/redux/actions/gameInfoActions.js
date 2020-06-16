@@ -1,5 +1,7 @@
-export const correctAnswer = (score, assertions) => ({
+const correctAnswer = (score, assertions) => ({
   type: 'CORRECT_ANSWER',
   score,
   assertions,
 });
+
+export default correctAnswer;
