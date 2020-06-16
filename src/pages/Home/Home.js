@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchToken } from '../../services/triviaAPI';
 import { setEmail, setName } from '../../redux/actions/piactions';
+import './home.css';
 
 class Home extends React.Component {
   constructor(props) {
@@ -30,7 +31,8 @@ class Home extends React.Component {
   render() {
     const { name, email } = this.state;
     return (
-      <div>
+      <div className="form-container">
+        <h1>Trivia</h1>
         <label htmlFor="name">Digite seu nome:</label>
         <input
           id="name" type="text" data-testid="input-gravatar-email"
