@@ -132,7 +132,7 @@ class Questions extends React.Component {
   optionsButtons(dataTestId, option) {
     const { disabledOption, correct, wrong } = this.state;
     const className = dataTestId === 'correct-answer' ? correct : wrong;
-    console.log(dataTestId,"dataTestId");
+    console.log(dataTestId, 'dataTestId');
     return (
       <button
         className={`options ${className}`}
