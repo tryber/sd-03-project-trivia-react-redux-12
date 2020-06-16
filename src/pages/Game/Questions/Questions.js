@@ -75,7 +75,6 @@ class Questions extends React.Component {
 
   sumScoreAndSaveInformations(timer, level) {
     const { assertions,score , gameInfo } = this.props;
-    console.log(this.props);
     let scoreQuestion = 0;
     const localstorageScore = JSON.parse(localStorage.getItem('state'));
     switch (level) {
@@ -91,10 +90,11 @@ class Questions extends React.Component {
       default:
         break;
     }
+    const assertionsStorage = localstorageScore.player.assertions;
     const objLocalStore = {
       player: {
         name: this.props.name,
-        assertions: assertions + 1,
+        assertions: assertionsStorage + 1,
         score: scoreQuestion,
         gravatarEmail: this.props.email,
       },
