@@ -28,12 +28,12 @@ class Header extends React.Component {
           </p>
         </div>
         <div className="Personal-Info">
-          <label> Pontos: </label>
-          <p
+          <label htmlFor="score"> Pontos: </label>
+          <p name="score"
             className="Player"
             data-testid="header-score"
           >
-           {parseInt(score)}
+            {score}
           </p>
         </div>
       </header>
