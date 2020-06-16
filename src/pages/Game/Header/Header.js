@@ -43,6 +43,7 @@ class Header extends React.Component {
 Header.propTypes = {
   name: PropTypes.string.isRequired,
   hash: PropTypes.string.isRequired,
+  score: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -56,12 +56,12 @@ class Home extends React.Component {
         <h1>Trivia</h1>
         <label htmlFor="name">Digite seu nome:</label>
         <input
-          id="name" type="text" data-testid="input-gravatar-email"
+          id="name" type="text" data-testid="input-player-name"
           onChange={(e) => this.setState({ name: e.target.value })}
         />
         <label htmlFor="emal">Digite seu email:</label>
         <input
-          id="emal" type="email" data-testid="input-player-name"
+          id="emal" type="email" data-testid="input-gravatar-email"
           onChange={(e) => this.setState({ email: e.target.value })}
         />
         <button
