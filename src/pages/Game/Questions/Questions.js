@@ -36,15 +36,15 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
-    const state = {
-      player: {
-        name: this.props.name,
-        assertions: 0,
-        score: 0,
-        gravatarEmail: this.props.email,
-      },
-    };
-    localStorage.setItem('state', JSON.stringify(state));
+    // const state = {
+    //   player: {
+    //     name: this.props.name,
+    //     assertions: 0,
+    //     score: 0,
+    //     gravatarEmail: this.props.email,
+    //   },
+    // };
+    // localStorage.setItem('state', JSON.stringify(state));
   }
 
   componentDidUpdate(prevProps) {
