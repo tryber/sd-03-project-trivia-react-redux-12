@@ -34,14 +34,14 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
-     let objLocalStore = {
-      player:{
-        name:this.props.name,
+    const objLocalStore = {
+       player: {
+        name: this.props.name,
         assertions: 0,
         score: 0,
-        gravatarEmail: 'sdfsdf@gmail.com'
+        gravatarEmail: 'sdfsdf@gmail.com',
       },
-    };
+     };
     localStorage.setItem('state', JSON.stringify(objLocalStore));
   }
 
@@ -88,14 +88,14 @@ class Questions extends React.Component {
         break;
     }
     const objLocalStore = {
-     player: {
-      name: this.props.name,
-      assertions: 0,
-      score: scoreQuestion,
-      gravatarEmail: '',
-    },
-   };
-    localStorage.setItem('state',JSON.stringify(objLocalStore));
+      player: {
+       name: this.props.name,
+       assertions: 0,
+       score: scoreQuestion,
+       gravatarEmail: '',
+     },
+    };
+    localStorage.setItem('state', JSON.stringify(objLocalStore));
   }
 
   nextQuestion(index) {
