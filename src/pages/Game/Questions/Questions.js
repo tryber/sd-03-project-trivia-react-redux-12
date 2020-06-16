@@ -34,16 +34,15 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
-    const objLocalStore = {
-      player: {
-        name: this.props.name,
-        assertions:0,
-        score:0,
-        gravatarEmail:''
-       }
-      }
-      localStorage.setItem('state',JSON.stringify(objLocalStore));
-
+     let objLocalStore = {
+      player:{
+        name:this.props.name,
+        assertions: 0,
+        score: 0,
+        gravatarEmail: 'sdfsdf@gmail.com'
+      },
+    };
+    localStorage.setItem('state', JSON.stringify(objLocalStore));
   }
 
   componentDidUpdate(prevProps) {
@@ -69,37 +68,34 @@ class Questions extends React.Component {
       wrong: 'wrong',
       correct: 'correct',
     });
-    return dataTestId === 'correct-answer' ?  this.sumScoreAndSaveInformations(this.state.timer, this.state.question.difficulty) : null;
+    return dataTestId === 'correct-answer' ? this.sumScoreAndSaveInformations(this.state.timer, this.state.question.difficulty) : null;
   }
 
-  sumScoreAndSaveInformations(timer, level ) {
+  sumScoreAndSaveInformations(timer, level) {
     let scoreQuestion = 0;
-    let localstorageScore =JSON.parse(localStorage.getItem('state'));
+    const localstorageScore = JSON.parse(localStorage.getItem('state'));
     switch (level) {
-     case 'hard':
-   scoreQuestion += localstorageScore.player.score + 10 + (timer * 3)
-       break;
-     case 'medium':
-      scoreQuestion += localstorageScore.player.score  + 10 + (timer * 2)
-       break;
-     case 'easy':
-      scoreQuestion += localstorageScore.player.score  + 10 + (timer * 1)
-       break;
-     default:
-       break;
-   }
-   const objLocalStore = {
-    player: {
+      case 'hard':
+        scoreQuestion += localstorageScore.player.score + 10 + (timer * 3);
+        break;
+      case 'medium':
+        scoreQuestion += localstorageScore.player.score + 10 + (timer * 2);
+        break;
+      case 'easy':
+        scoreQuestion += localstorageScore.player.score + 10 + (timer * 1);
+        break;
+      default:
+        break;
+    }
+    const objLocalStore = {
+     player: {
       name: this.props.name,
-      assertions:0,
-      score:scoreQuestion,
-      gravatarEmail:''
-     }
-   }
-   console.log(this.props)
+      assertions: 0,
+      score: scoreQuestion,
+      gravatarEmail: '',
+    },
+   };
     localStorage.setItem('state',JSON.stringify(objLocalStore));
-
-
   }
 
   nextQuestion(index) {
@@ -207,6 +203,7 @@ const mapStateToProps = (state) => ({
 });
 
 Questions.propTypes = {
+  name: PropTypes.string.isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string.isRequired,
     correct_answer: PropTypes.string.isRequired,
