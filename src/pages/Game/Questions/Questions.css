@@ -1,0 +1,29 @@
+.Questions-Container {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.correct {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.wrong {
+  border: 3px solid red;
+}
+
+.buttons-container {
+  width: 30%;
+}
+
+.options-container {
+  display: flex;
+  flex-flow: column wrap;
+  width: 100%;
+}
+
+.options {
+  margin: 1% 0;
+  padding: 1%;
+}
