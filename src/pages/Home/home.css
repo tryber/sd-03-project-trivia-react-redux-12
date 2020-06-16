@@ -1,12 +1,12 @@
 .form-container {
   animation: opacitySign 1s 1 forwards;
   background-color: #262626;
-  box-shadow: 0 1px 1px black , 0 -1px 2px 0 black;
   border-radius: 6px;
+  box-shadow: 0 1px 1px black , 0 -1px 2px 0 black;
   color: white;
   display: flex;
-  font-family: Arial, Helvetica, sans-serif;
   flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
   height: 350px;
   justify-content: space-between;
   margin: auto;
@@ -16,13 +16,14 @@
   width: 50%;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and ( max-width : 800px ) {
   .form-container {
     width: 90%;
   }
 }
 
 @keyframes opacitySign {
+
   from {
     opacity: 0;
   }
@@ -53,7 +54,8 @@
   transition: top 0.5s;
 }
 
- @keyframes labelSpace {
+@keyframes labelSpace {
+
   from {
     top: 12%;
   }
@@ -61,7 +63,7 @@
   to {
     top: 5%;
   }
- }
+}
 
 h1 {
   align-self: center;
@@ -85,5 +87,3 @@ h1 {
   text-align: center;
   width: 49px;
 }
-
-
