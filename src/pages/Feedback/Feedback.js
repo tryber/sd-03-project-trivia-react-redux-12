@@ -19,13 +19,10 @@ class Feedback extends React.Component {
       <div>
         <Header />
         <h3 data-testid="feedback-text">{feedback}</h3>
-        <label htmlFor="score">Total de Pontos:
         <p
-          name="score"
           data-testid="feedback-total-score"
         >{score}
         </p>
-        </label>
         <label
          htmlFor="assertion"
         >
