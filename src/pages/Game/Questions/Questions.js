@@ -35,13 +35,13 @@ class Questions extends React.Component {
 
   componentDidMount() {
     const objLocalStore = {
-       player: {
-        name: this.props.name,
-        assertions: 0,
-        score: 0,
-        gravatarEmail: 'sdfsdf@gmail.com',
-      },
-     };
+      player: {
+         name: this.props.name,
+         assertions: 0,
+         score: 0,
+         gravatarEmail: 'sdfsdf@gmail.com',
+       },
+    };
     localStorage.setItem('state', JSON.stringify(objLocalStore));
   }
 
@@ -89,11 +89,11 @@ class Questions extends React.Component {
     }
     const objLocalStore = {
       player: {
-       name: this.props.name,
-       assertions: 0,
-       score: scoreQuestion,
-       gravatarEmail: '',
-     },
+        name: this.props.name,
+        assertions: 0,
+        score: scoreQuestion,
+        gravatarEmail: '',
+      },
     };
     localStorage.setItem('state', JSON.stringify(objLocalStore));
   }
