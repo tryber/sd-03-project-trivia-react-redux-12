@@ -13,9 +13,9 @@ const gameInfoReducer = (state = INITIAL_STATE, action) => {
         assertions: action.assertions,
         answered: true,
       };
-     default:
-       return state;
-    }
-  };
+    default:
+      return state;
+  }
+};
 
-  export default gameInfoReducer;
+export default gameInfoReducer;
