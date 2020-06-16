@@ -19,7 +19,7 @@ class Ranking extends React.Component {
     return (
       <div className="ranking-container">
         <h1>Rankings</h1>
-        {this.renderRanking(rankings)}
+        {Ranking.renderRanking(rankings)}
         <Link to="/">
           <button data-testid="btn-go-home">Tela inicial</button>
         </Link>

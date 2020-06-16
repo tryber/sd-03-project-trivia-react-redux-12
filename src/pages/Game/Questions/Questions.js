@@ -96,7 +96,6 @@ class Questions extends React.Component {
   }
 
   nextQuestion(index) {
-    clearInterval(this.state.intervalId);
     this.setState({
       answered: false,
       disabledOption: false,
@@ -156,7 +155,7 @@ class Questions extends React.Component {
         <button
           className="next"
           data-testid="btn-next"
-          onClick={() => this.nextQuestion(index)}
+          onClick={() => {this.nextQuestion(index); this.timer();}}
         >
           Próxima
         </button> :

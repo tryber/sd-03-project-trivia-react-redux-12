@@ -32,7 +32,7 @@ class Header extends React.Component {
             className="Player"
             data-testid="header-score"
           >
-            Pontos: {`${this.state.points}`}
+            Pontos: {this.state.points}
           </p>
         </div>
       </header>
