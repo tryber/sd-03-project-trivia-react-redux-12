@@ -36,11 +36,11 @@ class Questions extends React.Component {
   componentDidMount() {
     const objLocalStore = {
       player: {
-         name: this.props.name,
-         assertions: 0,
-         score: 0,
-         gravatarEmail: 'sdfsdf@gmail.com',
-       },
+        name: this.props.name,
+        assertions: 0,
+        score: 0,
+        gravatarEmail: 'sdfsdf@gmail.com',
+      },
     };
     localStorage.setItem('state', JSON.stringify(objLocalStore));
   }
