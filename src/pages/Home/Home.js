@@ -54,24 +54,27 @@ class Home extends React.Component {
     return (
       <div className="form-container">
         <h1>Trivia</h1>
-        <label htmlFor="name">Digite seu nome:</label>
+        <label htmlFor="name">Digite seu nome</label>
         <input
           id="name" type="text" data-testid="input-player-name"
           onChange={(e) => this.setState({ name: e.target.value })}
         />
-        <label htmlFor="emal">Digite seu email:</label>
+        <label htmlFor="emal">Digite seu e-mail</label>
         <input
           id="emal" type="email" data-testid="input-gravatar-email"
           onChange={(e) => this.setState({ email: e.target.value })}
         />
         <button
+          className="play-button"
           type="button" disabled={(!name || !email)}
           onClick={this.submitInfo} data-testid="btn-play"
         >
           Jogar
         </button>
         <Link to="/setting">
-          <button data-testid="btn-settings" type="button">Configurações</button>
+          <button className="set-btn" data-testid="btn-settings" type="button">
+            <img src="https://img.icons8.com/ios-filled/50/000000/automatic.png" width="35px"/>
+          </button>
         </Link>
       </div>
     );
