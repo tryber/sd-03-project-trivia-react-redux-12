@@ -1,0 +1,21 @@
+.form-container {
+  background-color: rgba(26, 25, 25, 0.322);
+  border: black solid 2px;
+  display: flex;
+  flex-direction: column;
+  font-weight: 900;
+  height: 350px;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 5%;
+  padding: 30px;
+  width: 50%;
+}
+
+.form-container input {
+  border-radius: 5px;
+}
+
+h1 {
+  align-self: center;
+}
