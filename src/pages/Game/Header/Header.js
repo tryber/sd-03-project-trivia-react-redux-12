@@ -29,7 +29,8 @@ class Header extends React.Component {
         </div>
         <div className="Personal-Info">
           <label htmlFor="score"> Pontos: </label>
-          <p name="score"
+          <p
+            name="score"
             className="Player"
             data-testid="header-score"
           >

@@ -13,16 +13,31 @@ class Feedback extends React.Component {
       feedback = 'Podia ser melhor...';
     } else if (assertions >= 3) {
       feedback = 'Mandou bem!';
-   }
+    }
 
     return (
-     <div>
-      <Header />
-      <h3 data-testid="feedback-text">{feedback}</h3>
-      <label htmlFor="score">Total de Pontos: <p name="score" data-testid="feedback-total-score">{score}</p></label>
-      <label htmlFor="assertion">Total de Pontos:<h5 name="assertion" data-testid="feedback-total-question">{assertions}</h5></label>
-      <Link to="/ranking"><button data-testid="btn-ranking">Ver Ranking</button></Link>
-      <Link to="/"> <button data-testid="btn-play-again">Jogar novamente</button></Link>
+      <div>
+       <Header />
+       <h3 data-testid="feedback-text">{feedback}</h3>
+       <label
+        htmlFor="score"
+        >Total de Pontos:
+        <p
+        name="score"
+        data-testid="feedback-total-score"
+        >{score}
+        </p>
+        </label>
+       <label
+       htmlFor="assertion"
+       >Total de Pontos:
+       <h5
+        name="assertion"
+        data-testid="feedback-total-question">
+          {assertions}</h5>
+        </label>
+       <Link to="/ranking"><button data-testid="btn-ranking">Ver Ranking</button></Link>
+       <Link to="/"> <button data-testid="btn-play-again">Jogar novamente</button></Link>
      </div>
     );
   }
