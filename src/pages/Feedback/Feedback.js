@@ -25,13 +25,15 @@ class Feedback extends React.Component {
           data-testid="feedback-total-score"
         >{score}
         </p>
-       </label>
-       <label
-        htmlFor="assertion">
+        </label>
+        <label
+         htmlFor="assertion"
+        >
           Total de Pontos:
-       <h5
+        <h5
          name="assertion"
-         data-testid="feedback-total-question">
+         data-testid="feedback-total-question"
+        >
          {assertions}</h5>
        </label>
         <Link to="/ranking"><button data-testid="btn-ranking">Ver Ranking</button></Link>
