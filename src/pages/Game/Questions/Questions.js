@@ -24,7 +24,7 @@ class Questions extends React.Component {
       category: '',
       question: '',
       timer: 30,
-      correctAnswer: '',
+      localCorrectAnswer: '',
       incorrectAnswers: [],
       options: [],
       index: 0,
@@ -121,7 +121,7 @@ class Questions extends React.Component {
         category: questions[index].category,
         question: questions[index],
         timer: 30,
-        correctAnswer: questions[index].correct_answer,
+        localCorrectAnswer: questions[index].correct_answer,
         incorrectAnswers: questions[index].incorrect_answers,
         options: newArray,
         index: index + 1,
@@ -163,11 +163,11 @@ class Questions extends React.Component {
 
   renderOptions() {
     let index = -1;
-    const { options, correctAnswer } = this.state;
+    const { options, localCorrectAnswer } = this.state;
     return (
       <div className="options-container">
         {options.map((option) => {
-          if (option === correctAnswer) {
+          if (option === localCorrectAnswer) {
             return (
               this.optionsButtons('correct-answer', option)
             );
