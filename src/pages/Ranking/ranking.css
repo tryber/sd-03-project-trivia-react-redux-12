@@ -1,10 +1,10 @@
 .ranking-container {
   align-items: center;
-  border: rgb(1, 50, 90) solid 3px;
   background-color: rgb(90, 167, 230);
+  border: rgb(1, 50, 90) solid 3px;
   display: flex;
   flex-direction: column;
-  font-weight: bold;
+  font-weight: 900;
   justify-content: space-around;
   margin: auto;
   min-height: 200px;
@@ -14,25 +14,25 @@
 
 .rank-even {
   align-items: center;
-  border: rgba(0, 0, 0, 0.795) ridge 4px;
   background-color: cyan;
+  border: rgba(0, 0, 0, 0.795) ridge 4px;
   display: flex;
   justify-content: space-between;
-  margin-top: 5px;
   margin-bottom: 5px;
+  margin-top: 5px;
   padding: 10px;
   width: 50%;
 }
 
 .rank-odd {
   align-items: center;
-  border: white double 4px;
   background-color: darkblue;
+  border: white double 4px;
   color: white;
   display: flex;
   justify-content: space-between;
-  margin-top: 5px;
   margin-bottom: 5px;
+  margin-top: 5px;
   padding: 10px;
   width: 50%;
 }

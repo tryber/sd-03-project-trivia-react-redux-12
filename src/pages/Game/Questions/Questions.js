@@ -138,9 +138,9 @@ class Questions extends React.Component {
 
   saveRankings() {
     const playerState = JSON.parse(localStorage.getItem('state'));
-    const { player: { name, score }} = playerState;
+    const { player: { name, score } } = playerState;
     const picture = `https://www.gravatar.com/avatar/${this.props.hash}`;
-    if (localStorage.getItem('ranking')){
+    if (localStorage.getItem('ranking')) {
       let currentRanking = JSON.parse(localStorage.getItem('ranking'));
       currentRanking = [...currentRanking, { name, score, picture }];
       localStorage.setItem('ranking', JSON.stringify(currentRanking));
